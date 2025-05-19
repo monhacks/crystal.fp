@@ -145,12 +145,12 @@ DisplayDexEntry:
 	or d
 	jr z, .skip_weight
 	push de
-	; Print the weight, with four of the five digits in front of the decimal point
+	; Print the weight, with three of the four digits in front of the decimal point
 	ld hl, sp+0
 	ld d, h
 	ld e, l
 	hlcoord 11, 9
-	lb bc, 2, (4 << 4) | 5
+	lb bc, 2, (3 << 4) | 4
 	call PrintNum
 	pop de
 .skip_weight

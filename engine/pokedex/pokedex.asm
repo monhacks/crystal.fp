@@ -1072,7 +1072,7 @@ Pokedex_DrawDexEntryScreenBG:
 .Height:
 	db "HT  ?", $5e, "??", $5f, -1 ; HT  ?'??"
 .Weight:
-	db "WT   ???lb", -1
+	db "WT   ???kg", -1
 .MenuItems:
 	db $3b, " PAGE AREA CRY PRNT", -1
 
