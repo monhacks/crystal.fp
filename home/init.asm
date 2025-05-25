@@ -26,7 +26,7 @@ _Start::
 	ldh [hCGB], a
 	ld a, TRUE
 	ldh [hSystemBooted], a
-
+	; fallthrough
 Init::
 	di
 	xor a
@@ -53,7 +53,12 @@ Init::
 	jr nz, .wait
 	xor a
 	ldh [rLCDC], a
+	; Enable double speed mode
+	ldh a, [hCGB]
+	and a
+	call nz, DoubleSpeed
 	; Clear WRAM bank 0
+	xor a
 	ld hl, STARTOF(WRAM0)
 	ld bc, SIZEOF(WRAM0)
 	call ByteFill
@@ -114,11 +119,6 @@ Init::
 	xor a ; SRAM_DISABLE
 	ld [MBC3LatchClock], a
 	ld [MBC3SRamEnable], a
-	ldh a, [hCGB]
-	and a
-	jr z, .no_double_speed
-	call NormalSpeed
-.no_double_speed
 	xor a
 	ldh [rIF], a
 	ld a, IE_DEFAULT
