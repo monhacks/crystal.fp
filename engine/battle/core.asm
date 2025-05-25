@@ -6982,8 +6982,8 @@ WithdrawMonText:
 	; compute enemy health lost as a percentage
 	ld hl, wEnemyMonHP + 1
 	ld de, wEnemyHPAtTimeOfPlayerSwitch + 1
-	ld b, [hl]
-	dec hl
+	ld a, [hld]
+	ld b, a
 	ld a, [de]
 	sub b
 	ldh [hMultiplicand + 2], a
@@ -8142,10 +8142,10 @@ CopyBackpic:
 	ld c, 3
 	ld d, 8 * TILE_WIDTH
 .inner_loop
-	ld [hl], d ; y
-	inc hl
-	ld [hl], e ; x
-	inc hl
+	ld a, d
+	ld [hli], a ; y
+	ld a, e
+	ld [hli], a ; x
 	ldh a, [hMapObjectIndex]
 	ld [hli], a ; tile id
 	inc a

@@ -221,14 +221,13 @@ StopAutoInput::
 	ret
 
 JoyWaitAorB::
-.loop
 	call DelayFrame
 	call GetJoypad
 	ldh a, [hJoyPressed]
 	and A_BUTTON | B_BUTTON
 	ret nz
 	call UpdateTimeAndPals
-	jr .loop
+	jr JoyWaitAorB
 
 WaitButton::
 	ldh a, [hOAMUpdate]
@@ -298,12 +297,11 @@ WaitPressAorB_BlinkCursor::
 	ret
 
 SimpleWaitPressAorB::
-.loop
 	call JoyTextDelay
 	ldh a, [hJoyLast]
 	and A_BUTTON | B_BUTTON
-	jr z, .loop
-	ret
+	ret nz
+	jr SimpleWaitPressAorB
 
 PromptButton::
 ; Show a blinking cursor in the lower right-hand

@@ -2375,8 +2375,8 @@ DeformWater:
 	ldh a, [hLYOverrideStart]
 	cp l
 	jr nc, .skip2
-	ld [hl], e
-	dec hl
+	ld a, e
+	ld [hld], a
 .skip2
 	ld a, [wBattleSineWaveTempOffset]
 	add $4

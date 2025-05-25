@@ -11,7 +11,6 @@ ReinitBattleAnimFrameset:
 	ret
 
 GetBattleAnimFrame:
-.loop
 	ld hl, BATTLEANIMSTRUCT_DURATION
 	add hl, bc
 	ld a, [hl]
@@ -22,7 +21,6 @@ GetBattleAnimFrame:
 	ld a, [hli]
 	push af
 	jr .okay
-
 .next_frame
 	ld hl, BATTLEANIMSTRUCT_FRAME
 	add hl, bc
@@ -33,7 +31,6 @@ GetBattleAnimFrame:
 	jr z, .restart
 	cp oamend_command
 	jr z, .repeat_last
-
 	push af
 	ld a, [hl]
 	push hl
@@ -49,31 +46,26 @@ GetBattleAnimFrame:
 	ld [wBattleAnimTempFrameOAMFlags], a
 	pop af
 	ret
-
 .repeat_last
 	xor a
 	ld hl, BATTLEANIMSTRUCT_DURATION
 	add hl, bc
 	ld [hl], a
-
 	ld hl, BATTLEANIMSTRUCT_FRAME
 	add hl, bc
 	dec [hl]
 	dec [hl]
-	jr .loop
-
+	jr GetBattleAnimFrame
 .restart
 	xor a
 	ld hl, BATTLEANIMSTRUCT_DURATION
 	add hl, bc
 	ld [hl], a
-
 	dec a
 	ld hl, BATTLEANIMSTRUCT_FRAME
 	add hl, bc
 	ld [hl], a
-	jr .loop
-
+	jr GetBattleAnimFrame
 .GetPointer:
 	ld hl, BATTLEANIMSTRUCT_FRAMESET_ID
 	add hl, bc
@@ -110,10 +102,10 @@ LoadBattleAnimGFX:
 	add hl, hl
 	ld de, AnimObjGFX
 	add hl, de
-	ld c, [hl]
-	inc hl
-	ld b, [hl]
-	inc hl
+	ld a, [hli]
+	ld c, a
+	ld a, [hli]
+	ld b, a
 	ld a, [hli]
 	ld h, [hl]
 	ld l, a

@@ -234,8 +234,8 @@ CalcMagikarpLength:
 .ok
 	ld e, a
 	ld hl, wMagikarpLength
-	ld [hl], d ; ft
-	inc hl
+	ld a, d
+	ld [hli], a ; ft
 	ld [hl], e ; in
 	ret
 .BCLessThanDE:
