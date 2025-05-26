@@ -166,7 +166,7 @@ CallInSafeGFXMode:
 	ldh [rSVBK], a
 	ldh a, [rVBK]
 	push af
-	call ._hl_
+	rst CallHL
 	pop af
 	ldh [rVBK], a
 	pop af
@@ -176,14 +176,12 @@ CallInSafeGFXMode:
 	pop af
 	ldh [hBGMapMode], a
 	ret
-._hl_
-	jp hl
 
 HDMATransferToWRAMBank3:
 	call _LoadHDMAParameters
 	ld a, $23
 	ldh [hDMATransfer], a
-
+	; fallthrough
 WaitDMATransfer:
 .loop
 	call DelayFrame

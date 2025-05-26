@@ -17,7 +17,7 @@ FarCall_hl::
 	push af
 	ldh a, [hTempBank]
 	rst Bankswitch
-	call FarCall_JumpToHL
+	rst CallHL
 	; fallthrough
 ReturnFarCall::
 ; We want to retain the contents of f.
@@ -36,6 +36,3 @@ ReturnFarCall::
 	ld a, [wFarCallBC + 1]
 	ld c, a
 	ret
-
-FarCall_JumpToHL::
-	jp hl
